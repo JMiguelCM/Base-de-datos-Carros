@@ -1,25 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
-  {
-    id: 1,
-    placa: "ABC-123",
-    numeroSerie: "123XYZ789",
-    modelo: "Sedán",
-    marca: "Toyota",
-    kilometraje: "50000",
-    tipo: "Gasolina",
-  },
-  {
-    id: 2,
-    placa: "MIK-456",
-    numeroSerie: "456ABC789",
-    modelo: "hatchback",
-    marca: "Nissan",
-    kilometraje: "30000",
-    tipo: "Gasolina",
-  },
-];
+const initialState = [];
 
 export const carsSlice = createSlice({
   name: "cars",
@@ -34,8 +15,21 @@ export const carsSlice = createSlice({
         return state.filter((car) => car.id !== action.payload);
       }
     },
+    updateCar: (state, action) => {
+      const { id, placa, numeroSerie, modelo, marca, kilometraje, tipo } =
+        action.payload;
+      const Foundcar = state.find((car) => car.id === id);
+      if (Foundcar) {
+        Foundcar.placa = placa;
+        Foundcar.numeroSerie = numeroSerie;
+        Foundcar.modelo = modelo;
+        Foundcar.marca = marca;
+        Foundcar.kilometraje = kilometraje;
+        Foundcar.tipo = tipo;
+      }
+    },
   },
 });
 
-export const { addCars,deleteCars } = carsSlice.actions;
+export const { addCars, deleteCars, updateCar } = carsSlice.actions;
 export default carsSlice.reducer;
